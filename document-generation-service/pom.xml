@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Identification -->
+	<!-- *********************************************************************** -->
+	<artifactId>document-generation-service</artifactId>
+	<packaging>jar</packaging>
+
+	<name>DocumentGeneration-service Service</name>
+	<description>DocumentGeneration-service Service</description>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Parent -->
+	<!-- *********************************************************************** -->
+	<parent>
+		<groupId>gov.nsf.psm</groupId>
+		<artifactId>DocumentGeneration</artifactId>
+		<version>1.2.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Properties -->
+	<!-- *********************************************************************** -->
+	<properties>
+		<psm.foundation.version>1.2.0-SNAPSHOT</psm.foundation.version>
+		<itextpdf.version>7.1.2</itextpdf.version>
+		<jamon.version>2.81</jamon.version>
+		<java.version>1.8</java.version>
+		<powermock.version>1.6.6</powermock.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sonar.exclusions>src/main/java/gov/nsf/psm/documentgeneration/config/SwaggerConfig.java,
+			src/main/java/gov/nsf/psm/documentgeneration/DocumentGenerationServiceApplication.java,
+			src/main/java/gov/nsf/psm/documentgeneration/common/utility/PrepareCoverSheetData.java</sonar.exclusions>
+		<springfox.version>2.6.1</springfox.version>
+		<springfox.ui.version>2.6.1</springfox.ui.version>
+	</properties>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Dependencies -->
+	<!-- *********************************************************************** -->
+
+	<dependencies>
+		<dependency>
+			<groupId>gov.nsf.psm</groupId>
+			<artifactId>psm-foundation</artifactId>
+			<version>${psm.foundation.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<!-- H2 Database -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- iText 7 PDF dependencies -->
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>kernel</artifactId>
+			<version>${itextpdf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>io</artifactId>
+			<version>${itextpdf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>layout</artifactId>
+			<version>${itextpdf.version}</version>
+		</dependency>
+    
+		<!-- iText 7 -->
+
+		<!-- API documentation dependencies -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.ui.version}</version>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jamonapi</groupId>
+			<artifactId>jamon</artifactId>
+			<version>${jamon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Building -->
+	<!-- *********************************************************************** -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+						<configuration>
+							<additionalProperties>
+								<encoding.source>UTF-8</encoding.source>
+								<encoding.reporting>UTF-8</encoding.reporting>
+								<java.source>${java.version}</java.source>
+								<java.target>${java.version}</java.target>
+								<timestamp>${maven.build.timestamp}</timestamp>
+								<dependencies.psm-foundation>${psm.foundation.version}</dependencies.psm-foundation>
+								<dependencies.itextpdf>${itextpdf.version}</dependencies.itextpdf>
+							</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

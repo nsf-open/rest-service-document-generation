@@ -1,0 +1,25 @@
+# Spring Boot settings
+server: 
+    port: 
+    
+# Spring Boot settings
+security:
+    basic:
+        enabled: false
+    user:
+        name: 
+        password: 
+endpoints:
+    loggers:
+        sensitive: false
+management:
+    context-path: 
+    security:
+        enabled: false    
+        
+# Spring settings
+spring:
+    jmx:
+        enabled: false
+    jackson:
+        serialization-inclusion: non_null          
